@@ -1,0 +1,19 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {{ se }}
+    <h1>Forum Doc</h1>
+    <form class="" action="/login/" method="post" autocomplete="off">
+    {% csrf_token %}
+    <label>Username</label>
+    <input type="text" name="username">
+    <br><br>
+    <label>Password</label>
+    <input type="password" name="password" ><br>
+    <input type="submit" value="login">
+  </form>
+  </body>
+</html>
