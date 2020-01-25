@@ -88,3 +88,5 @@ def update_completed(request):
             return redirect('user:home')
     else:
         return render(request, 'home.html')
+
+
