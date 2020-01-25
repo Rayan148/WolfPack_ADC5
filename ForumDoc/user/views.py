@@ -51,3 +51,12 @@ def login(request):
             return redirect('user:login')
     else:
         return render(request, 'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('user:home')
+
+def user_profile(request):
+    user_id = request.user 
+    user = User.objects.get(pk = user_id.id)
+    return render(request, 'user_profile.html', {'user':user})
