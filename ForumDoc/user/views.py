@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -54,9 +55,36 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('user:home')
+    return HttpResponse('Loged out.')
 
 def user_profile(request):
     user_id = request.user 
     user = User.objects.get(pk = user_id.id)
     return render(request, 'user_profile.html', {'user':user})
+
+def update(request):
+    user_info = request.user
+    user = User.objects.get(pk = user_info.id)
+    return render(request, 'update.html', {'user':user})
+
+def update_completed(request):
+    user_info = request.user
+    user = User.objects.get(pk = user_info.id)
+    if request.method == "POST":
+        user.username = request.POST['username']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.email = request.POST['email']
+    
+        if User.objects.filter(username = user.username).exists():
+            messages.info(request, "The username is already taken.")
+            return redirect('user:update_profile')
+        elif User.objects.filter(email = user.email).exists():
+            messages.info(request, 'The email has already been taken.')
+            return redirect('user:update_profile')
+        else:
+            user.save()
+            messages.info(request, 'Profile has been updated successfully.')
+            return redirect('user:home')
+    else:
+        return render(request, 'home.html')
