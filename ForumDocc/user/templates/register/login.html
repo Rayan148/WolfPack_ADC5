@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4" id="loginBlock">
+
+            <div class="pageTitle"><strong>Login</strong></div>
+
+            <div class="row pad">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <form action="" method="POST" role="form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" placeholder="Username" required="TRUE">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" placeholder="Password" required="TRUE">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                Login
+                                <i class="glyphicon glyphicon-arrow-right"></i>
+                            </button>
+
+                            {% for message in messages %}
+                            <script type="text/javascript">
+                              alert('{{message}}');
+                            </script>
+                            {% endfor %}
+
+
+                            <a href="{% url 'user:signup' %}" class="btn btn-link pull-right">
+                                <i class="glyphicon glyphicon-plus-sign"></i> Go to Register
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
