@@ -8,15 +8,15 @@ def thread(request, thread_id):
     thread=Thread.objects.get(pk=thread_id)
 
     if request.method=='POST':  #For reply
-        form=ReplyForm(request.POST) #For reply
-        form=ReplyForm(request.POST) #For reply
-        reply=form.save(commit=False) #For reply
-        reply.thread=thread #For reply
-        reply.user=request.user #For reply
-        reply.save() #For reply
-        return redirect('forum:thread', thread_id=thread_id) #For reply
+        form=ReplyForm(request.POST)
+        form=ReplyForm(request.POST)
+        reply=form.save(commit=False)
+        reply.thread=thread
+        reply.user=request.user
+        reply.save()
+        return redirect('forum:thread', thread_id=thread_id)
     else:
-        form=ReplyForm() #For reply
+        form=ReplyForm()
 
     context={'thread':thread, 'form':form}
     return render(request, 'forum/thread.html', context)

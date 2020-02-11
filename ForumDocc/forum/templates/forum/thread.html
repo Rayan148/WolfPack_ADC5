@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 
+    <div class="pageTitle">
+                <h2>Question title: {{ thread.title }}</h2>
+            </div>
+            <br>
 
           <table class="table mb-4 ">
             <thead>
@@ -35,35 +39,28 @@
                              </form>
                              </td>
                   {% endif %}
+            </table>
 
-
-            <div class="pageTitle">
-                <h2>{{ thread.title }}</h2>
-            </div>
-
-          <h3 class="">Replies &mdash; ({{ thread.reply_set.count }} total)</h3>
-
+            <h2>Reply Table: </h2>
+            <table class="table mb-4 ">
+            <thead>
+            <tr>
+                <th>Replies</th>
+                <th>Posted On</th>
+                <th>Posted By</th>
+            </tr>
+            </thead>
+            <tbody>
             {% for reply in thread.reply_set.all %}
-            <div class="panel panel-primary reply" id="r1" style="border-radius: 10px;">
-                <div class="panel-body">
-                    <div class="row reply">
-                        <div class="col-lg-9">
-                            <div class="reply-msg">
-                                {{ reply.message }}
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="reply-details">
-                                <i class="glyphicon glyphicon-calendar"></i> {{ reply.date_created }} &nbsp;
-                                <br />
-                                <i class="glyphicon glyphicon-user"></i> {{ reply.user.username }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <td> {{ reply.message }} </td>
+                <td> <i class="glyphicon glyphicon-calendar"></i>{{ reply.date_created }} &nbsp; </td>
+                <td> {{ reply.user.username }} </td>
             {% endfor %}
+            </tbody>
+            </table> 
 
+            <h3 class="">Total Replies &mdash; ({{ thread.reply_set.count }} total)</h3>
+            <br> 
             {% if user.is_authenticated %}
             <div class="row pad">
                 <div class="col-lg-12 pad">
